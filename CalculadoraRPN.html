@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+
+<html lang="es">
+
+<head>
+    <!--Metadatos de los documentos HTML5-->
+    <meta name="author" content="Sara Fernández Arias" />
+    <meta name="description" content="Html empleado para el ejercicio quinto de la práctica 3" />
+    <meta name="keywords" content="javascript,uniovi,software,ecmascript,rpn,calculator" />
+
+    <!--Definición de la ventana gráfica-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Datos que describen el documento -->
+    <meta charset="UTF-8" />
+    <title>calculadora RPN</title>
+    <!-- añadir el elemento link de enlace a la hoja de estilo dentro del <head> del documento html -->
+    <link rel="stylesheet" type="text/css" href="CalculadoraRPN.css" />
+    <script src="CalculadoraRPN.js"></script>
+</head>
+
+<body>
+    <form name="formulario">
+
+        <textarea name="pilaOperandos" rows="10" cols="50" readonly></textarea>
+        <textarea name="operandoActual" rows="1" cols="50" readonly> </textarea>
+
+        <!--Memoria    -->
+        <input type="button" value="MC" onclick=" calculadoraRPN.borrarMemoria()" name="mc" disabled>
+        <input type="button" value="MR" onclick=" calculadoraRPN.recuperarMemoria()" name="mr" disabled>
+        <input type="button" value="M-" onclick=" calculadoraRPN.restarMemoria()" name="mrestar">
+        <input type="button" value="M+" onclick=" calculadoraRPN.sumarMemoria()" name="msumar">
+        <input type="button" value="MS" onclick=" calculadoraRPN.almacenarEnMemoria()" name="ms">
+
+        <!--Primera fila-->
+        <input type="button" value="&#8593;" onclick="calculadoraRPN.shift()" name="shift">
+        <input type="button" value="x&#178;" onclick=" calculadoraRPN.cuadrado( )" name="cuadrado">
+        <input type="button" value="x^y" onclick=" calculadoraRPN.potenciaDeXBaseY()" name="potencia">
+        <input type="button" value="√" onclick=" calculadoraRPN.raizCuadrada()" name="sqrt">
+        <input type="button" value="10^x" onclick=" calculadoraRPN.potenciaDeXBase10( )" name="baseDiez">
+
+        <!--Segunda fila-->
+        <input type="button" value="log" onclick=" calculadoraRPN.log( )" name="log">
+        <input type="button" value="&#x3C0;" onclick=" calculadoraRPN.mostrarPi()" name="pi">
+        <input type="button" value="sin" onclick=" calculadoraRPN.seno()" name="sin">
+        <input type="button" value="cos" onclick=" calculadoraRPN.coseno( )" name="cos">
+        <input type="button" value="tan" onclick=" calculadoraRPN.tangente()" name="tan">
+        <!--Tercera fila-->
+        <input type="button" value="-" onclick="calculadoraRPN.resta()" name="resta">
+        <input type="button" value="+" onclick="calculadoraRPN.suma()" name="suma">
+        <input type="button" value="x" onclick="calculadoraRPN.multiplicacion()" name="multiplicacion">
+        <input type="button" value="+/-" onclick=" calculadoraRPN.cambioSigno( )" name="+-">
+        <input type="button" value="&#247;" onclick=" calculadoraRPN.division()" name="division">
+         
+
+        <!--Cuarta fila-->
+
+
+        <input type="button" value="n!" onclick=" calculadoraRPN.factorial()" name="factorial">
+        <input type="button" value="7" onclick=" calculadoraRPN.digitos(7)" name="7">
+        <input type="button" value="8" onclick=" calculadoraRPN.digitos(8)" name="8">
+        <input type="button" value="9" onclick="calculadoraRPN.digitos(9)" name="9">
+        <input type="button" value="CE" onclick=" calculadoraRPN.borrarError( )" name="ce">
+
+        <!--Quinta fila-->
+        <input type="button" value="&#x3C0;" onclick=" calculadoraRPN.mostrarPi()" name="pi">
+        <input type="button" value="4" onclick=" calculadoraRPN.digitos(4)" name="4">
+        <input type="button" value="5" onclick=" calculadoraRPN.digitos(5)" name="5">
+        <input type="button" value="6" onclick=" calculadoraRPN.digitos(6)" name="6">
+        <input type="button" value="C" onclick="calculadoraRPN.reiniciar()" name="c">
+        <!--Sexta fila-->
+
+
+        <input type="button" value="mod" onclick=" calculadoraRPN.modulo()" name="mod">
+        <input type="button" value="1" onclick=" calculadoraRPN.digitos(1)" name="1">
+        <input type="button" value="2" onclick=" calculadoraRPN.digitos(2)" name="2">
+        <input type="button" value="3" onclick=" calculadoraRPN.digitos(3)" name="3">
+        <input type="button" value="&#8656;" onclick=" calculadoraRPN.borrarUltimoDigito()" name="borrarDigito">
+
+        <!--Séptima fila-->
+
+        <input type="button" value="," onclick=" calculadoraRPN.decimales()" name=",">
+
+        <input type="button" value="0" onclick=" calculadoraRPN.digitos(0)" name="0">
+
+        <input type="button" value="Enter" onclick=" calculadoraRPN.enter()" name="enter">
+
+    </form>
+    <footer>
+        <p>Hecho por Sara Fernández Arias</p>
+    </footer>
+</body>
+
+</html>
