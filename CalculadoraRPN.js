@@ -1,6 +1,7 @@
 "use strict";
 const VACIO = ""
 const ERROR = "ERROR"
+const COMA=",";
 class CalculadoraRPN {
 
     constructor() {
@@ -24,7 +25,12 @@ class CalculadoraRPN {
     */
     pushOperando(operando) {
         document.querySelector('textArea[name="pilaOperandos"]').value = VACIO;//vaciamos el area del número que está siendo introducido porque se ha seleccionado enter.
-        if (isNaN(operando)) {
+    
+        if(operando.includes(COMA)){
+            operando=operando.replace(',','.');
+        }
+        
+        if (isNaN(Number(operando))) {
             document.querySelector('textArea[name="pilaOperandos"]').value = ERROR;
         } else {
 
@@ -36,7 +42,7 @@ class CalculadoraRPN {
 
     }
     actualizarPila() {
-        document.querySelector('textArea[name="pilaOperandos"]').value=VACIO;
+        document.querySelector('textArea[name="pilaOperandos"]').value = VACIO;
         var gap = ":      "
 
         for (let index = this.pilaOperandos.length - 1; index >= 0; index--) {
@@ -52,18 +58,18 @@ class CalculadoraRPN {
     suma() {
         this.asignarOperandos();
         this.resultado = this.operando1 + this.operando2;
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
     }
     resta() {
         this.asignarOperandos();
         this.resultado = this.operando1 - this.operando2;
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
 
     }
     multiplicacion() {
         this.asignarOperandos();
         this.resultado = this.operando1 * this.operando2;
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
     }
     division() {
         this.asignarOperandos();
@@ -75,7 +81,7 @@ class CalculadoraRPN {
         this.asignarOperandosUnaria();
         this.operando2 = Number(-1)
         this.resultado = this.operando1 * this.operando2;
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
 
     }
     cuadrado() {
@@ -83,46 +89,47 @@ class CalculadoraRPN {
         this.asignarOperandos();
         this.operando2 = Number(2);
         this.resultado = Math.pow(this.operando1, this.operando2);
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
 
     }
     mostrarPi() {
         this.operandoActual = VACIO;
         this.digitos(Math.PI)
     }
-    potenciaDeYBaseX() {
+
+    potenciaDeXBaseY() {
         this.asignarOperandos();
         this.resultado = Math.pow(this.operando1, this.operando2);
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
     }
     potenciaBase10() {
         this.asignarOperandosUnaria();
         this.operando2 = Number(10);
         this.resultado = Math.pow(this.operando2, this.operando1);
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
     }
-    raízCuadrada() {
+    raizCuadrada() {
         this.asignarOperandosUnaria();
         this.resultado = Math.sqrt(this.operando1);
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
     }
     seno() {
 
         this.asignarOperandosUnaria();
         this.shiftIsPressed ? this.resultado = Math.asin(this.operando1) : this.resultado = Math.sin(this.operando1);
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
 
     }
     coseno() {
 
         this.asignarOperandosUnaria();
         this.shiftIsPressed ? this.resultado = Math.acos(this.operando1) : this.resultado = Math.cos(this.operando1);
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
     }
     tangente() {
         this.asignarOperandosUnaria();
         this.shiftIsPressed ? this.resultado = Math.atan(this.operando1) : this.resultado = Math.tan(this.operando1);
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
     }
     borrarMemoria() {
         this.memoria = Number(0);
@@ -134,9 +141,31 @@ class CalculadoraRPN {
         document.querySelector('textArea[name="operandoActual"]').value = this.operandoActual;
 
     }
+
+    decimales() {
+        this.quitarSimboloDecimales(COMA);
+
+        if (!this.operandoActual.includes(COMA)) {
+            this.operandoActual += ",";
+         
+            document.querySelector('textArea[name="operandoActual"]').value = this.operandoActual;
+          
+        }
+      
+
+    }
+    /*En caso de que tras introducir una punto se presione el simbolo de una operación, se borrará automáticamente*/
+    quitarSimboloDecimales(simbolo) {
+        if (this.operandoActual.length > 0) {
+            if (this.operandoActual.charAt(-1) === simbolo) {
+                this.borrarUltimoDigito();
+            }
+        }
+
+    }
     borrarError() {
-       this.pilaOperandos.pop();
-       this.actualizarPila();
+        this.pilaOperandos.pop();
+        this.actualizarPila();
     }
     reiniciar() {
         this.pilaOperandos = new Array();
@@ -195,7 +224,7 @@ class CalculadoraRPN {
     }
     enter() {
 
-        this.pushOperando(this.operandoActual);
+        this.pushOperando(String(this.operandoActual));
         this.operandoActual = VACIO;
         document.querySelector('textArea[name="operandoActual"]').value = VACIO;
 
@@ -312,7 +341,7 @@ class CalculadoraRPN {
                     case "B":
                         this.borrarMemoria();
                         break;
-               
+
                     case "Enter":
                         this.enter();
                         break;
