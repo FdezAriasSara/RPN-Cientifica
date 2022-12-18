@@ -74,7 +74,7 @@ class CalculadoraRPN {
     division() {
         this.asignarOperandos();
         this.resultado = this.operando1 / this.operando2;
-        this.pushOperando(this.resultado);
+        this.pushOperando(String(this.resultado));
 
     }
     cambioSigno() {
